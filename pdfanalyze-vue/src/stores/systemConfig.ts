@@ -22,6 +22,14 @@ export const SystemConfigStore = defineStore('SystemConfig', {
         console.log("retdata", this.systemConfig)
       });
     },
+    async saveSystemConfigs(data: any) {
+      await request({
+        url: '/api/system/system_config/save_content/',
+        method: 'put',
+        data,
+      });
+      await this.getSystemConfigs();
+    },
   },
   persist: {
     enabled: true,
