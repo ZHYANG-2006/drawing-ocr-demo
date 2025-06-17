@@ -31,7 +31,22 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
       isKeepAlive: true,
       icon: 'HomeOutlined',
     },
-    children: [],
+    children: [
+      {
+        path: '/system/systemConfig',
+        name: 'systemConfig',
+        component: () => import('/@/views/system/systemConfig/index.vue'),
+        meta: {
+          title: 'SystemConfig',
+          isLink: '',
+          isHide: false,
+          isKeepAlive: true,
+          isAffix: false,
+          isIframe: false,
+          icon: 'SettingOutlined',
+        },
+      },
+    ],
   },
   {
     path: '/personal',
