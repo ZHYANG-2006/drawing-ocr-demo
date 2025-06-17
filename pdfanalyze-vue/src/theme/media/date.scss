@@ -1,0 +1,25 @@
+@import './index.scss';
+
+/* 页面宽度小于768px
+------------------------------- */
+@media screen and (max-width: $sm) {
+	// 时间选择器适配
+	.ant-date-range-picker {
+		width: 100vw;
+		.ant-picker-panel__body {
+			min-width: 100%;
+			.ant-date-range-picker__content {
+				.ant-date-range-picker__header div {
+					margin-left: 22px;
+					margin-right: 0px;
+				}
+				& + .ant-date-range-picker__content {
+					.ant-date-range-picker__header div {
+						margin-left: 0px;
+						margin-right: 22px;
+					}
+				}
+			}
+		}
+	}
+}

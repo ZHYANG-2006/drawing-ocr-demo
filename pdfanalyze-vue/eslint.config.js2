@@ -1,0 +1,110 @@
+import vue from 'eslint-plugin-vue';
+import typescript from '@typescript-eslint/eslint-plugin';
+import typescriptParser from '@typescript-eslint/parser'; // TypeScript 解析器
+import prettier from 'eslint-plugin-prettier';
+import vueParser from 'vue-eslint-parser'; // Vue 解析器
+import babelParser from '@babel/eslint-parser'; // Babel 解析器，支持 JSX
+
+export default [
+  // Vue 文件的配置
+  {
+    files: ['**/*.vue'],
+    languageOptions: {
+      ecmaVersion: 2021,  // 启用 ES2021 的新特性
+      sourceType: 'module',  // 使用模块化语法
+      parser: vueParser,  // 使用 Vue 解析器
+      parserOptions: {
+        ecmaVersion: 2020,  // 启用 ECMAScript 2020 特性
+        sourceType: 'module',  // 支持模块
+        ecmaFeatures: {
+          jsx: true,  // 启用 JSX 语法支持
+        },
+      },
+    },
+    plugins: {
+      vue,
+      '@typescript-eslint': typescript,
+      prettier,
+    },
+    rules: {
+      // Vue 相关规则
+      'vue/custom-event-name-casing': 'off',
+      'vue/attributes-order': 'error',
+      'vue/one-component-per-file': 'error',
+      'vue/html-closing-bracket-newline': 'error',
+      'vue/max-attributes-per-line': 'off',
+      'vue/multiline-html-element-content-newline': 'off',
+      'vue/singleline-html-element-content-newline': 'off',
+      'vue/attribute-hyphenation': 'off',
+      'vue/html-self-closing': [
+        'error',
+        {
+          html: {
+            void: 'always',
+            normal: 'never',
+            component: 'always',
+          },
+        },
+      ],
+      'vue/no-multiple-template-root': 'off',
+      'vue/require-default-prop': 'off',
+      'vue/no-v-model-argument': 'off',
+    },
+  },
+
+  // TypeScript 文件的配置
+  {
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      ecmaVersion: 2021,  // 启用 ES2021 的新特性
+      sourceType: 'module',
+      parser: typescriptParser, // 使用 TypeScript 解析器
+      parserOptions: {
+        ecmaVersion: 2020,  // 启用 ECMAScript 2020 特性
+        sourceType: 'module',
+      },
+    },
+    plugins: {
+      '@typescript-eslint': typescript,
+      prettier,
+    },
+    rules: {
+      // TypeScript 规则
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-var-requires': 'error',
+      '@typescript-eslint/no-empty-function': 'warn',
+      '@typescript-eslint/no-use-before-define': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_' },
+      ],
+    },
+  },
+
+  // Babel 配置 - 用于支持 JSX 语法
+  {
+    files: ['**/*.{jsx,tsx}'],
+    languageOptions: {
+      ecmaVersion: 2021, // 启用 ES2021 的新特性
+      sourceType: 'module',
+      parser: babelParser, // 使用 Babel 解析器
+      parserOptions: {
+        ecmaVersion: 2020,  // 启用 ECMAScript 2020 特性
+        sourceType: 'module',  // 支持模块
+        ecmaFeatures: {
+          jsx: true,  // 启用 JSX 语法支持
+        },
+      },
+    },
+    plugins: {
+      prettier,
+    },
+    rules: {
+      'prettier/prettier': ['error'],
+    },
+  },
+];

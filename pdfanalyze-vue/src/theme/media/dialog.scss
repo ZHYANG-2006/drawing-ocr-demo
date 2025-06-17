@@ -1,0 +1,12 @@
+@import './index.scss';
+
+/* 页面宽度小于800px
+------------------------------- */
+@media screen and (max-width: 800px) {
+	.ant-dialog {
+		width: 90% !important;
+	}
+	.ant-dialog.is-fullscreen {
+		width: 100% !important;
+	}
+}

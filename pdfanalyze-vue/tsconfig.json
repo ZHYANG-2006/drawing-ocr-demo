@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "jsx": "preserve",
+    "isolatedModules": true,
+
+    /* Strict Type-Checking Options */
+    "strict": true,
+
+    /* Module Resolution Options */
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "/@/*": ["src/*"]
+    },
+    "types": ["vite/client", "jest", "node", "pinia-plugin-persistedstate"],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+
+    /* Experimental Options */
+    "experimentalDecorators": true,
+
+    /* Advanced Options */
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "suppressImplicitAnyIndexErrors": false
+  },
+  "include": [
+    "src/**/*",
+    "src/**/*.vue",
+    "src/**/*.tsx",
+    "src/**/*.d.ts",
+    "*.d.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
+}

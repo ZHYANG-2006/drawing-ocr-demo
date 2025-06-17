@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sma_django_web:latest   # <--- 新增
+    container_name: "sma-django-web"
+    command: python manage.py runserver 0.0.0.0:7007
+    ports:
+      - "7007:7007"
+    volumes:
+      - /home/cppqcp/pdf-analyze:/mnt/pdf-analyze
+      - /mnt/remote-pdfs:/mnt/remote-pdfs
+    environment:
+      - DJANGO_SETTINGS_MODULE=application.settings
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+    depends_on:
+      - redis
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sma_django_worker:latest  # <--- 新增
+    container_name: "sma-django-worker"
+    command: celery -A application worker -l INFO -P solo
+    volumes:
+      - /home/cppqcp/pdf-analyze:/mnt/pdf-analyze
+      - /mnt/remote-pdfs:/mnt/remote-pdfs
+    environment:
+      - DJANGO_SETTINGS_MODULE=application.settings
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+    depends_on:
+      - redis
+
+  beat:
+     build:
+       context: .
+       dockerfile: Dockerfile
+     image: sma_django_beat:latest
+     container_name: sma-django-beat
+     command: >
+       celery -A application beat
+         --loglevel=info
+         --scheduler django_celery_beat.schedulers:DatabaseScheduler
+     volumes:
+       - /home/cppqcp/pdf-analyze:/mnt/pdf-analyze
+       - /mnt/remote-pdfs:/mnt/remote-pdfs
+     environment:
+       - DJANGO_SETTINGS_MODULE=application.settings
+       - CELERY_BROKER_URL=redis://redis:6379/0
+       - CELERY_RESULT_BACKEND=redis://redis:6379/1
+     depends_on:
+       - redis
+
+  redis:
+    image: redis:6.2-alpine
+    container_name: "sma-django-redis"
+    ports:
+      - "6379:6379"

@@ -1,0 +1,10 @@
+@import './index.scss';
+
+/* 页面宽度小于576px
+------------------------------- */
+@media screen and (max-width: $xs) {
+	.ant-cascader__dropdown.ant-popper {
+		overflow: auto;
+		max-width: 100%;
+	}
+}
