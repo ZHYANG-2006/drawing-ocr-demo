@@ -1,6 +1,6 @@
 # drawing-ocr-demo
 End-to-end Drawing OCR pipeline demo
-**技术栈：** Python + FastAPI + YOLOv8 + Vue3
+**技术栈：** Python + Django + YOLOv8 + Vue3
 
 **一键运行（占位）：**
 ```bash
